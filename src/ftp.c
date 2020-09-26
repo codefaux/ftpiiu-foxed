@@ -107,7 +107,7 @@ static s32 write_reply(client_t *client, u16 code, char *msg) {
 	char * msgbuf = (char *) malloc(msglen + 1);
 	if (msgbuf == NULL) return -ENOMEM;
 	sprintf(msgbuf, "%u %s\r\n", code, msg);
-	console_printf("Wrote reply: %s", msgbuf);
+//	console_printf("Wrote reply: %s", msgbuf);
 	s32 ret = send_exact(client->socket, msgbuf, msglen);
 	free(msgbuf);
 	return ret;
@@ -322,9 +322,9 @@ static s32 ftp_PASV(client_t *client, char *rest UNUSED) {
 	char reply[49];
 	u16 port = bindAddress.sin_port;
 	u32 ip = network_gethostip();
-	struct in_addr addr;
-	addr.s_addr = ip;
-	console_printf("Listening for data connections at %s:%u...\n", inet_ntoa(addr), port);
+	//struct in_addr addr;
+	//addr.s_addr = ip;
+  //console_printf("New port :%u\n", port);
 	sprintf(reply, "Entering Passive Mode (%u,%u,%u,%u,%u,%u).", (ip >> 24) & 0xff, (ip >> 16) & 0xff, (ip >> 8) & 0xff, ip & 0xff, (port >> 8) & 0xff, port & 0xff);
 	return write_reply(client, 227, reply);
 }
@@ -344,7 +344,7 @@ static s32 ftp_PORT(client_t *client, char *portspec) {
 	u16 port = ((p1 &0xff) << 8) | (p2 & 0xff);
 	client->address.sin_addr = sin_addr;
 	client->address.sin_port = htons(port);
-	console_printf("Set client address to %s:%u\n", addr_str, port);
+	//console_printf("Set client address to %s:%u\n", addr_str, port);
 	return write_reply(client, 200, "PORT command successful.");
 }
 
@@ -372,7 +372,7 @@ static s32 prepare_data_connection_active(client_t *client, data_connection_call
 
 static s32 prepare_data_connection_passive(client_t *client, data_connection_callback callback UNUSED, void *arg UNUSED) {
 	client->data_socket = client->passive_socket;
-	console_printf("Waiting for data connections...\n");
+	//console_printf("Waiting for data connections...\n");
 	return 0;
 }
 
@@ -677,7 +677,7 @@ static s32 process_command(client_t *client, char *cmd_line) {
 		return 0;
 	}
 
-	console_printf("Got command: %s\n", cmd_line);
+//	console_printf("Got command: %s\n", cmd_line);
 
 	const char **commands = unauthenticated_commands;
 	const ftp_command_handler *handlers = unauthenticated_handlers;
@@ -742,7 +742,7 @@ static bool process_accept_events(s32 server) {
 			return false;
 		}
 
-		console_printf("Accepted connection from %s!\n", inet_ntoa(client_address.sin_addr));
+		//console_printf("Accepted connection from %s!\n", inet_ntoa(client_address.sin_addr));
 
 		if (num_clients == MAX_CLIENTS) {
 			console_printf("Maximum of %u clients reached, not accepting client.\n", MAX_CLIENTS);
@@ -814,7 +814,7 @@ static void process_data_events(client_t *client) {
 		}
 		if (client->data_connection_connected) {
 			result = 1;
-			console_printf("Connected to client!  Transferring data...\n");
+			//console_printf("Connected to client!  Transferring data...\n");
 		} else if (gettime() > client->data_connection_timer) {
 			result = -2;
 			console_printf("Timed out waiting for data connection.\n");

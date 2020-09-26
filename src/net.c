@@ -34,9 +34,9 @@ misrepresented as being the original software.
 #include "dynamic_libs/socket_functions.h"
 #include "net.h"
 
-#define MAX_NET_BUFFER_SIZE (64*1024)
-#define MIN_NET_BUFFER_SIZE 4096
-#define FREAD_BUFFER_SIZE (64*1024)
+#define MAX_NET_BUFFER_SIZE (1024*1024)
+#define MIN_NET_BUFFER_SIZE (128*1024)
+#define FREAD_BUFFER_SIZE (1024*1024)
 
 extern u32 hostIpAddress;
 
@@ -44,7 +44,7 @@ static u32 NET_BUFFER_SIZE = MAX_NET_BUFFER_SIZE;
 
 #if 0
 void initialise_network() {
-	printf("Waiting for network to initialise...\n");
+	//printf("Waiting for network to initialise...\n");
 	s32 result = -1;
 	while (!check_reset_synchronous() && result < 0) {
 		net_deinit();
@@ -55,12 +55,12 @@ void initialise_network() {
 		u32 ip = 0;
 		do {
 			ip = net_gethostip();
-			if (!ip) printf("net_gethostip() failed, retrying...\n");
+			//if (!ip) printf("net_gethostip() failed, retrying...\n");
 		} while (!check_reset_synchronous() && !ip);
 		if (ip) {
 			struct in_addr addr;
 			addr.s_addr = ip;
-			printf("Network initialised.  Wii IP address: %s\n", inet_ntoa(addr));
+			//printf("Network initialised.  WiiU IP address: %s\n", inet_ntoa(addr));
 		}
 	}
 }
@@ -121,7 +121,7 @@ s32 network_connect(s32 s,struct sockaddr *addr, s32 addrlen)
     return res;
 }
 
-s32 network_read(s32 s,void *mem,s32 len)
+s32 inline network_read(s32 s,void *mem,s32 len)
 {
     int res = recv(s, mem, len, 0);
     if(res < 0)
@@ -223,7 +223,7 @@ static s32 transfer_exact(s32 s, char *buf, s32 length, transferrer_type transfe
 		} else if (bytes_transferred < 0) {
 			if (bytes_transferred == -EINVAL && NET_BUFFER_SIZE == MAX_NET_BUFFER_SIZE) {
 				NET_BUFFER_SIZE = MIN_NET_BUFFER_SIZE;
-				usleep(1000);
+				usleep(100);
 				goto try_again_with_smaller_buffer;
 			}
 			result = bytes_transferred;

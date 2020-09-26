@@ -130,7 +130,7 @@ int Menu_Main(void)
     InitOSFunctionPointers();
     InitSocketFunctionPointers();
 
-    log_init("192.168.178.3");
+    //log_init("192.168.178.3");
     log_print("Starting launcher\n");
 
     InitFSFunctionPointers();
@@ -240,8 +240,8 @@ int Menu_Main(void)
             break;
         }
 
-        //! update only at 50 Hz, thats more than enough
-        if(++vpadReadCounter >= 20)
+        //! update infrequently
+        if(++vpadReadCounter >= 10)
         {
             vpadReadCounter = 0;
 
@@ -251,7 +251,7 @@ int Menu_Main(void)
                 break;
         }
 
-		usleep(1000);
+		usleep(10000);
     }
 
 	cleanup_ftp();

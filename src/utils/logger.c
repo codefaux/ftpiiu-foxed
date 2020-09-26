@@ -14,6 +14,8 @@ static volatile int log_lock = 0;
 
 void log_init(const char * ipString)
 {
+	return;
+
 	log_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (log_socket < 0)
 		return;
@@ -33,6 +35,7 @@ void log_init(const char * ipString)
 
 void log_deinit(void)
 {
+	return;
     if(log_socket >= 0)
     {
         socketclose(log_socket);
@@ -42,6 +45,7 @@ void log_deinit(void)
 
 void log_print(const char *str)
 {
+	return;
     // socket is always 0 initially as it is in the BSS
     if(log_socket < 0) {
         return;
@@ -68,6 +72,7 @@ void log_print(const char *str)
 
 void log_printf(const char *format, ...)
 {
+	return;
     if(log_socket < 0) {
         return;
     }
