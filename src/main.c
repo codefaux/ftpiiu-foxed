@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <gctypes.h>
-#include <fat.h>
 #include <iosuhax.h>
 #include <iosuhax_devoptab.h>
 #include <iosuhax_disc_interface.h>
@@ -166,7 +165,7 @@ int Menu_Main(void)
     else
     {
         iosuhaxMount = 1;
-        fatInitDefault();
+        //fatInitDefault();
 
         fsaFd = IOSUHAX_FSA_Open();
         if(fsaFd < 0)
