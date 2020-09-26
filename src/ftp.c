@@ -45,6 +45,8 @@ misrepresented as being the original software.
 
 #define FTP_BUFFER_SIZE 1024
 #define MAX_CLIENTS 5
+#define BASE_PORTNR 1024
+#define MAX_PORTNR 32768
 
 extern void console_printf(const char *format, ...);
 
@@ -54,7 +56,7 @@ static const char *CRLF = "\r\n";
 static const u32 CRLF_LENGTH = 2;
 
 static u8 num_clients = 0;
-static u16 passive_port = 1024;
+static u16 passive_port = 0;
 static char *password = NULL;
 
 typedef s32 (*data_connection_callback)(s32 data_socket, void *arg);
@@ -308,7 +310,7 @@ static s32 ftp_PASV(client_t *client, char *rest UNUSED) {
 	struct sockaddr_in bindAddress;
 	memset(&bindAddress, 0, sizeof(bindAddress));
 	bindAddress.sin_family = AF_INET;
-	bindAddress.sin_port = htons(passive_port++); // XXX: BUG: This will overflow eventually, with interesting results...
+	bindAddress.sin_port = htons( BASE_PORTNR + (passive_port++ % MAX_PORTNR) );
 	bindAddress.sin_addr.s_addr = htonl(INADDR_ANY);
 	s32 result;
 	if ((result = network_bind(client->passive_socket, (struct sockaddr *)&bindAddress, sizeof(bindAddress))) < 0) {
