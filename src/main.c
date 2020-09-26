@@ -148,6 +148,7 @@ int Menu_Main(void)
     //!*******************************************************************
     //!                        Initialize FS                             *
     //!*******************************************************************
+
     log_printf("Mount SD partition\n");
 
     int fsaFd = -1;
@@ -310,4 +311,3 @@ int Menu_Main(void)
 
     return EXIT_SUCCESS;
 }
-

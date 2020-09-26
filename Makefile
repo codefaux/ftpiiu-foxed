@@ -36,7 +36,7 @@ SOURCES		:=	src \
 				src/fs \
 				src/system \
 				src/utils
-DATA		:=	
+DATA		:=
 
 INCLUDES	:=  src
 
@@ -115,7 +115,7 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
 # build a list of library paths
 #---------------------------------------------------------------------------------
 export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
-					-L$(PORTLIBS)/lib
+					-L$(PORTLIBS)/lib -L$(LIBOGC_LIB)
 
 export OUTPUT	:=	$(CURDIR)/$(TARGET)
 .PHONY: $(BUILD) clean install
