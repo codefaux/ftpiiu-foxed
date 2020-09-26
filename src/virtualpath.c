@@ -94,15 +94,15 @@ void AddVirtualPath(const char *name, const char *alias, const char *prefix)
 void MountVirtualDevices()
 {
     VirtualMountDevice("sd:/");
-    VirtualMountDevice("slccmpt01:/");
-    VirtualMountDevice("storage_odd_tickets:/");
-    VirtualMountDevice("storage_odd_updates:/");
-    VirtualMountDevice("storage_odd_content:/");
-    VirtualMountDevice("storage_odd_content2:/");
-    VirtualMountDevice("storage_slc:/");
-    VirtualMountDevice("storage_mlc:/");
+//    VirtualMountDevice("slccmpt01:/");
+//    VirtualMountDevice("storage_odd_tickets:/");
+//    VirtualMountDevice("storage_odd_updates:/");
+//    VirtualMountDevice("storage_odd_content:/");
+//    VirtualMountDevice("storage_odd_content2:/");
+//    VirtualMountDevice("storage_slc:/");
+//    VirtualMountDevice("storage_mlc:/");
     VirtualMountDevice("storage_usb:/");
-    VirtualMountDevice("usb:/");
+//    VirtualMountDevice("usb:/");
 }
 
 void UnmountVirtualPaths()

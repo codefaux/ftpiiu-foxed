@@ -173,25 +173,25 @@ int Menu_Main(void)
             log_printf("IOSUHAX_FSA_Open failed\n");
         }
 
-        mount_fs("slccmpt01", fsaFd, "/dev/slccmpt01", "/vol/storage_slccmpt01");
-        mount_fs("storage_odd_tickets", fsaFd, "/dev/odd01", "/vol/storage_odd_tickets");
-        mount_fs("storage_odd_updates", fsaFd, "/dev/odd02", "/vol/storage_odd_updates");
-        mount_fs("storage_odd_content", fsaFd, "/dev/odd03", "/vol/storage_odd_content");
-        mount_fs("storage_odd_content2", fsaFd, "/dev/odd04", "/vol/storage_odd_content2");
-        mount_fs("storage_slc", fsaFd, NULL, "/vol/system");
-        mount_fs("storage_mlc", fsaFd, NULL, "/vol/storage_mlc01");
-        mount_fs("storage_usb", fsaFd, NULL, "/vol/storage_usb01");
+				mount_sd_fat("sd");
+        //mount_fs("slccmpt01", fsaFd, "/dev/slccmpt01", "/vol/storage_slccmpt01");
+        //mount_fs("storage_odd_tickets", fsaFd, "/dev/odd01", "/vol/storage_odd_tickets");
+        //mount_fs("storage_odd_updates", fsaFd, "/dev/odd02", "/vol/storage_odd_updates");
+        //mount_fs("storage_odd_content", fsaFd, "/dev/odd03", "/vol/storage_odd_content");
+        //mount_fs("storage_odd_content2", fsaFd, "/dev/odd04", "/vol/storage_odd_content2");
+        //mount_fs("storage_slc", fsaFd, NULL, "/vol/system");
+        //mount_fs("storage_mlc", fsaFd, NULL, "/vol/storage_mlc01");
+        mount_fs("storage_usb", fsaFd, NULL, "/vol/storage_usb01/usr");
 
-        VirtualMountDevice("sd:/");
-        VirtualMountDevice("slccmpt01:/");
-        VirtualMountDevice("storage_odd_tickets:/");
-        VirtualMountDevice("storage_odd_updates:/");
-        VirtualMountDevice("storage_odd_content:/");
-        VirtualMountDevice("storage_odd_content2:/");
-        VirtualMountDevice("storage_slc:/");
-        VirtualMountDevice("storage_mlc:/");
+        //VirtualMountDevice("slccmpt01:/");
+        //VirtualMountDevice("storage_odd_tickets:/");
+        //VirtualMountDevice("storage_odd_updates:/");
+        //VirtualMountDevice("storage_odd_content:/");
+        //VirtualMountDevice("storage_odd_content2:/");
+        //VirtualMountDevice("storage_slc:/");
+        //VirtualMountDevice("storage_mlc:/");
         VirtualMountDevice("storage_usb:/");
-        VirtualMountDevice("usb:/");
+        //VirtualMountDevice("usb:/");
     }
 
 	for(int i = 0; i < MAX_CONSOLE_LINES_TV; i++)
@@ -278,19 +278,20 @@ int Menu_Main(void)
 
     if(iosuhaxMount)
     {
-        fatUnmount("sd");
-        fatUnmount("usb");
+        //fatUnmount("sd");
+        //fatUnmount("usb");
         IOSUHAX_sdio_disc_interface.shutdown();
         IOSUHAX_usb_disc_interface.shutdown();
 
-        unmount_fs("slccmpt01");
-        unmount_fs("storage_odd_tickets");
-        unmount_fs("storage_odd_updates");
-        unmount_fs("storage_odd_content");
-        unmount_fs("storage_odd_content2");
-        unmount_fs("storage_slc");
-        unmount_fs("storage_mlc");
+        //unmount_fs("slccmpt01");
+        //unmount_fs("storage_odd_tickets");
+        //unmount_fs("storage_odd_updates");
+        //unmount_fs("storage_odd_content");
+        //unmount_fs("storage_odd_content2");
+        //unmount_fs("storage_slc");
+        //unmount_fs("storage_mlc");
         unmount_fs("storage_usb");
+				unmount_sd_fat("sd:/");
         IOSUHAX_FSA_Close(fsaFd);
         if(mcp_hook_fd >= 0)
             MCPHookClose();
@@ -299,7 +300,7 @@ int Menu_Main(void)
     }
     else
     {
-        unmount_sd_fat("sd:/");
+			unmount_sd_fat("sd:/");
     }
 
     UnmountVirtualPaths();
