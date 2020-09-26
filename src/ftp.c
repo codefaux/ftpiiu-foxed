@@ -391,7 +391,7 @@ static s32 prepare_data_connection(client_t *client, void *callback, void *arg, 
 			client->data_callback = callback;
 			client->data_connection_callback_arg = arg;
 			client->data_connection_cleanup = cleanup;
-			client->data_connection_timer = gettime() + SECS_TO_TICKS(10);
+			client->data_connection_timer = gettime() + SECS_TO_TICKS(100);
 		}
 	}
 	return result;
