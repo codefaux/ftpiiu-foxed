@@ -43,7 +43,7 @@ misrepresented as being the original software.
 
 #define UNUSED	__attribute__((unused))
 
-#define FTP_BUFFER_SIZE 1024
+#define FTP_BUFFER_SIZE 2048
 #define MAX_CLIENTS 5
 #define BASE_PORTNR 1024
 #define MAX_PORTNR 32768

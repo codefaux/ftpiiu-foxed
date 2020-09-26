@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <app version="1">
-  <name>FTPiiU</name>
-  <coder>joedj</coder>
-  <version>0.4</version>
-  <release_date>20161101200000</release_date>
-  <short_description>An FTP server</short_description>
-  <long_description>ftpiiU is an FTP server for WiiU.
-
-	Ported to WiiU by Dimok.
+  <name>FTPiiU-Foxed</name>
+  <coder>joedj / Dimok / CodeFaux</coder>
+  <version>0.1</version>
+  <url>https://gbatemp.net/</url>
+  <release_date>0</release_date>
+  <short_description>A modded FTP server</short_description>
+  <long_description>	Ported to WiiU by Dimok.
 	Based on FTPii from joedj
+	Modded by CodeFaux
   </long_description>
+  <category>tool</category>
 
 </app>
