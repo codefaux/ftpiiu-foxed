@@ -222,6 +222,7 @@ static s32 transfer_exact(s32 s, char *buf, s32 length, transferrer_type transfe
 			buf += bytes_transferred;
 		} else if (bytes_transferred < 0) {
 			if (bytes_transferred == -EINVAL && NET_BUFFER_SIZE == MAX_NET_BUFFER_SIZE) {
+				console_printf("Buffer demoted");
 				NET_BUFFER_SIZE = MIN_NET_BUFFER_SIZE;
 				usleep(100);
 				goto try_again_with_smaller_buffer;
